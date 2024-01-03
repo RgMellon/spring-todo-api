@@ -71,4 +71,10 @@ public class TodoController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity detail(@PathVariable Long id) {
+        var todo = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DataDetailTodo(todo));
+    }
 }
