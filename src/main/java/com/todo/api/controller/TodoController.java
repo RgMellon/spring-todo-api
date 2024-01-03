@@ -1,5 +1,6 @@
 package com.todo.api.controller;
 
+import com.todo.api.DTO.todo.DataDetailTodo;
 import com.todo.api.DTO.todo.DataListTodo;
 import com.todo.api.DTO.todo.DataRegisterTodo;
 import com.todo.api.DTO.todo.DataUpdateTodo;
@@ -15,6 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 @RestController
@@ -27,10 +29,15 @@ public class TodoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<String> register(@RequestBody @Valid DataRegisterTodo data) {
+    public ResponseEntity register(@RequestBody @Valid DataRegisterTodo data, UriComponentsBuilder uriBuilder) {
         try {
-            repository.save(new Todo(data));
-            return ResponseEntity.ok("Solicitação processada com sucesso.");
+
+            var todo = new Todo(data);
+            repository.save(todo);
+
+            var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(todo.getId()).toUri();
+
+            return ResponseEntity.created(uri).body(new DataDetailTodo(todo));
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -40,22 +47,28 @@ public class TodoController {
 
 
     @GetMapping
-    public Page<DataListTodo> list(@PageableDefault(size = 10, sort = {"title"}) Pageable pagination) {
-        return repository.findAllByIsActiveTrue(pagination).map(DataListTodo::new);
+    public ResponseEntity<Page<DataListTodo>> list(@PageableDefault(size = 10, sort = {"title"}) Pageable pagination) {
+        var page =  repository.findAllByIsActiveTrue(pagination).map(DataListTodo::new);
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
-    public void update(@RequestBody @Valid DataUpdateTodo data) {
+    public ResponseEntity update(@RequestBody @Valid DataUpdateTodo data) {
         var todoList = repository.getReferenceById(data.id());
         todoList.updateInfo(data);
+
+        return ResponseEntity.ok(new DataDetailTodo(todoList));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity delete(@PathVariable Long id) {
 
         var todo = repository.getReferenceById(id);
         todo.softDelete(id);
+
+
+        return ResponseEntity.noContent().build();
     }
 }
