@@ -1,0 +1,2 @@
+ALTER TABLE todos
+CHANGE COLUMN isDone is_done BOOLEAN NOT NULL;
