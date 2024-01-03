@@ -1,7 +1,6 @@
-package com.todo.api.jpa.repository;
+package com.todo.api.domain.todo.jpa.repository;
 
-import com.todo.api.jpa.Todo;
-import io.micrometer.observation.ObservationFilter;
+import com.todo.api.domain.todo.jpa.Todo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

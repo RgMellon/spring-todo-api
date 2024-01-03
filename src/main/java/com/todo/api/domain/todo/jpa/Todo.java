@@ -1,16 +1,13 @@
-package com.todo.api.jpa;
+package com.todo.api.domain.todo.jpa;
 
 
-import com.todo.api.DTO.todo.DataRegisterTodo;
-import com.todo.api.DTO.todo.DataUpdateTodo;
+import com.todo.api.domain.todo.DTO.DataRegisterTodo;
+import com.todo.api.domain.todo.DTO.DataUpdateTodo;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Table(name = "todos")
 @Entity(name = "TODO")

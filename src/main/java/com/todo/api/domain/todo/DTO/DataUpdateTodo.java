@@ -1,4 +1,4 @@
-package com.todo.api.DTO.todo;
+package com.todo.api.domain.todo.DTO;
 
 import jakarta.validation.constraints.NotNull;
 

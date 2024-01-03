@@ -1,11 +1,11 @@
 package com.todo.api.controller;
 
-import com.todo.api.DTO.todo.DataDetailTodo;
-import com.todo.api.DTO.todo.DataListTodo;
-import com.todo.api.DTO.todo.DataRegisterTodo;
-import com.todo.api.DTO.todo.DataUpdateTodo;
-import com.todo.api.jpa.Todo;
-import com.todo.api.jpa.repository.TodoRepository;
+import com.todo.api.domain.todo.DTO.DataDetailTodo;
+import com.todo.api.domain.todo.DTO.DataListTodo;
+import com.todo.api.domain.todo.DTO.DataRegisterTodo;
+import com.todo.api.domain.todo.DTO.DataUpdateTodo;
+import com.todo.api.domain.todo.jpa.Todo;
+import com.todo.api.domain.todo.jpa.repository.TodoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
