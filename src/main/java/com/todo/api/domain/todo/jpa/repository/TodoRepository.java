@@ -9,4 +9,7 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
     Page<Todo> findAllByIsDoneTrue(Pageable pagination);
 
     Page<Todo> findAllByIsActiveTrue(Pageable pagination);
+
+
+
 }

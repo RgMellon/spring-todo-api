@@ -1,0 +1,1 @@
+create table reminds (    id serial primary key,    todo_id bigint not null,    remind_date datetime not null,    constraint fk_reminds_todo_id foreign key (todo_id) references todos (id));
